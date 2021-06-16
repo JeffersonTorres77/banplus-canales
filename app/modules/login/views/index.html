@@ -1,0 +1,99 @@
+{% extends template('login') %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ public_file('index.css') }}">
+{% endblock %}
+
+{% block js %}
+<script>
+    const IR_A = `{{ (ir_a != null) ? ir_a : '' }}`;
+</script>
+<script src="{{ public_file('index.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="login-box">
+    <div class="card">
+        <div class="card-header text-center bg-verde">
+            <a href="{{ BASE_URL }}" class="h5">
+                {{ SISTEMA.NOMBRE }}
+            </a>
+        </div>
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Iniciar sesión</p>
+  
+            <form id="form-login">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Usuario..." required name="user">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Contraseña..." required name="pass">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse" id="login-errors">
+                    <div class="alert alert-danger py-2 px-3">
+                        <button type="button" class="close" data-toggle="collapse" data-target="#login-errors">&times;</button>
+                        <div id="login-errors-label"></div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-verde btn-block">Ingresar</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+      </div>
+      <div class="card-footer text-left py-2 text-muted">
+          v{{ SISTEMA.VERSION }}
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<div class="modal fade" id="modal-registro">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <form class="modal-content" id="form-registro">
+            <div class="modal-header bg-verde">
+                <div class="modal-title">Usuario no registrado</div>
+                <div class="close" data-dismiss="modal" type="button">&times;</div>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="user" id="registro-input-usuario">
+                <div>
+                    El usuario <b id="registro-usuario"></b> no se encuentra registrado pero pertenece a la red
+                    ¿Desea registrarlo?
+                </div>
+                <div class="mt-3">
+                    Coloque nuevamente su contraseña
+                    <div class="input-group">
+                        <input type="password" class="form-control" placeholder="Contraseña..." required name="pass">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-md-center">
+                <button class="btn btn-100px btn-outline-secondary" data-dismiss="modal" type="button">Cancelar</button>
+                <button class="btn btn-100px btn-verde" type="submit">Registrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

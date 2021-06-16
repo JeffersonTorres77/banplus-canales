@@ -1,0 +1,16 @@
+.bg-verde {
+    color: white !important;
+    background-color: #a4c639 !important;
+}
+
+.btn-verde {
+    color: white !important;
+    background-color: #a4c639 !important;
+    border-color: #a4c639 !important;
+}
+
+.btn-verde:hover {
+    color: white !important;
+    background-color: #83a024 !important;
+    border-color: #83a024 !important;
+}

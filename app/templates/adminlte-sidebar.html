@@ -1,0 +1,104 @@
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <li class="nav-item">
+        <a href="{{ BASE_URL }}" class="nav-link {{ (CONTROLADOR == 'home' and METODO == 'index') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Inicio</p>
+        </a>
+    </li>
+
+    <!-- PAGO PLUS -->
+    <li class="nav-item">
+        <a
+            href="#"
+            class="nav-link {{ (CONTROLADOR == 'pago_plus') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-mobile-alt"></i>
+            <p>
+                Pago Plus
+                <i class="fas fa-angle-left right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a
+                    href="{{ BASE_URL }}/Pago_Plus/Actualizar/"
+                    class="nav-link {{ (CONTROLADOR == 'pago_plus' and METODO == 'actualizar') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-sync-alt"></i>
+                    <p>Actualizar</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                href="{{ BASE_URL }}/Pago_Plus/Consultar/"
+                    class="nav-link {{ (CONTROLADOR == 'pago_plus' and METODO == 'consultar') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-list"></i>
+                    <p>Consultar</p>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- TRANSACCIONES -->
+    <li class="nav-item">
+        <a
+            href="#"
+            class="nav-link {{ (CONTROLADOR == 'transacciones') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-shield-alt"></i>
+            <p>
+                Transacciones
+                <i class="fas fa-angle-left right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a
+                    href="{{ BASE_URL }}/Transacciones/Actualizar/"
+                    class="nav-link {{ (CONTROLADOR == 'transacciones' and METODO == 'actualizar') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-sync-alt"></i>
+                    <p>Actualizar</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                href="{{ BASE_URL }}/Transacciones/Consultar/"
+                    class="nav-link {{ (CONTROLADOR == 'transacciones' and METODO == 'consultar') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-list"></i>
+                    <p>Consultar</p>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- CONTINGENCIA -->
+    <li class="nav-item">
+        <a href="#" class="nav-link {{ (CONTROLADOR == 'home' and METODO == 'index') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-clipboard-list"></i>
+            <p>Contingencia</p>
+        </a>
+        <ul class="nav nav-treeview">
+
+        </ul>
+    </li>
+
+    <li class="nav-header">Sistema</li>
+
+    <li class="nav-item">
+        <a href="#1" class="nav-link">
+            <i class="nav-icon fas fa-key"></i>
+            <p>Roles</p>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-shield-alt"></i>
+            <p>Permisos</p>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="#3" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>Usuarios</p>
+        </a>
+    </li>
+</ul>
