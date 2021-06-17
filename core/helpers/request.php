@@ -53,6 +53,10 @@ class Request
         return self::$esAjax;
     }
 
+    public static function getParametros() {
+        return self::$parametros;
+    }
+
     public static function input($key = NULL, $required = TRUE) {
         $input_string = file_get_contents("php://input");
         $inputJson = json_decode($input_string);

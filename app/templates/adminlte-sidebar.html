@@ -1,4 +1,4 @@
-<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-flat" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item">
         <a href="{{ BASE_URL }}" class="nav-link {{ (CONTROLADOR == 'home' and METODO == 'index') ? 'active' : '' }}">
             <i class="nav-icon fas fa-home"></i>
@@ -70,33 +70,59 @@
 
     <!-- CONTINGENCIA -->
     <li class="nav-item">
-        <a href="#" class="nav-link {{ (CONTROLADOR == 'home' and METODO == 'index') ? 'active' : '' }}">
+        <a
+            href="#"
+            class="nav-link {{ (CONTROLADOR == 'contingencia') ? 'active' : '' }}">
             <i class="nav-icon fas fa-clipboard-list"></i>
-            <p>Contingencia</p>
+            <p>
+                Contingencia
+                <i class="fas fa-angle-left right"></i>
+            </p>
         </a>
         <ul class="nav nav-treeview">
-
+            <li class="nav-item">
+                <a
+                    href="{{ BASE_URL }}/Contingencia/Usuarios/"
+                    class="nav-link {{ (CONTROLADOR == 'contingencia' and METODO == 'usuarios') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-sync-alt"></i>
+                    <p>Usuarios</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                    href="{{ BASE_URL }}/Contingencia/Gestionar/"
+                    class="nav-link {{ (CONTROLADOR == 'contingencia' and METODO == 'gestionar') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-list"></i>
+                    <p>Gestionar</p>
+                </a>
+            </li>
         </ul>
     </li>
 
     <li class="nav-header">Sistema</li>
 
     <li class="nav-item">
-        <a href="#1" class="nav-link">
+        <a
+            href="{{ BASE_URL }}/Roles/"
+            class="nav-link {{ (CONTROLADOR == 'roles') ? 'active' : '' }}">
             <i class="nav-icon fas fa-key"></i>
             <p>Roles</p>
         </a>
     </li>
 
     <li class="nav-item">
-        <a href="#2" class="nav-link">
+        <a
+            href="{{ BASE_URL }}/Permisos/"
+            class="nav-link {{ (CONTROLADOR == 'permisos') ? 'active' : '' }}">
             <i class="nav-icon fas fa-shield-alt"></i>
             <p>Permisos</p>
         </a>
     </li>
 
     <li class="nav-item">
-        <a href="#3" class="nav-link">
+        <a
+            href="{{ BASE_URL }}/Usuarios/"
+            class="nav-link {{ (CONTROLADOR == 'usuarios') ? 'active' : '' }}">
             <i class="nav-icon fas fa-users"></i>
             <p>Usuarios</p>
         </a>

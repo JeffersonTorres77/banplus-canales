@@ -10,6 +10,7 @@ Request::analizar();
 // Guardamos los datos de la peticion
 $controlador = Request::getControlador();
 $metodo = Request::getMetodo();
+$parametros = Request::getParametros();
 
 // Verificamos que el archivo solicitado exista
 $pathModule = BASE_DIR."/app/modules/{$controlador}";
@@ -37,7 +38,7 @@ if( !method_exists('controlador', $metodo) ) {
 
 // Ejecutamos y mostramos la respuesta a la peticion
 $controlador = new controlador;
-$resp = $controlador->$metodo();
+$resp = $controlador->$metodo( ...$parametros );
 echo $resp;
 
 ?>

@@ -37,7 +37,11 @@
 }
 
 #modal-loader .modal-dialog {
-    width: 98px !important;
+    width: 10rem !important;
+}
+
+#modal-loader .modal-content {
+    height: 10rem !important;
 }
 
 #modal-loader .spinner-grow {
@@ -63,4 +67,9 @@
 
 .control-sidebar, .control-sidebar::before {
     bottom: calc(2.6rem + 0px) !important;
+}
+
+.btn-opc {
+    width: 32px;
+    height: 32px;
 }
