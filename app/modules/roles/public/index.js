@@ -11,11 +11,12 @@ var tabla = $("#table-roles").DataTable({
     columns: [
         {
             data: "nombre",
-            class: "align-middle"
+            class: "align-middle text-truncate"
         },
         {
             data: "id",
-            width: '110px',
+            width: '100px',
+            class: "align-middle text-truncate",
             orderable: false,
             render: function(d, type, row) {
                 return `<div class="text-center">

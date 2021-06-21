@@ -73,3 +73,30 @@
     width: 32px;
     height: 32px;
 }
+
+.navbar-success {
+    background-color: #a4c639 !important;
+}
+
+.navbar-dark {
+    border-color: #99bb2f !important;
+}
+
+.brand-link {
+    padding: .83rem .5rem !important;
+}
+
+.brand-text {
+    position: relative;
+    top: 2px;
+    color: white !important;
+}
+
+.sidebar-light-lime .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: #a4c639 !important;
+    color: #ffffff !important;
+}
+
+.sidebar-mini.sidebar-collapse .nav-sidebar .nav-header {
+    display: block !important;
+}

@@ -40,6 +40,8 @@ class Response
     }
 
     private static function basic_parameters() {
+        if( !isset($_COOKIE['sidebar_collapse']) ) $_COOKIE['sidebar_collapse'] = FALSE;
+        
         return [
             'SISTEMA' => [
                 'NOMBRE' => config('SISTEMA.NOMBRE'),
@@ -49,7 +51,8 @@ class Response
             'BASE_URL' => BASE_URL,
             'USUARIO' => Sesion::usuario(),
             'CONTROLADOR' => Request::getControlador(),
-            'METODO' => Request::getMetodo()
+            'METODO' => Request::getMetodo(),
+            'SIDEBAR_COLLAPSE' => boolval( $_COOKIE['sidebar_collapse'] )
         ];
     }
 

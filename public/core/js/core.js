@@ -202,3 +202,14 @@ const DT_SPANISH = {
 		"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 	}
 };
+
+/**
+ * Push Menu
+ */
+ $(document).on('shown.lte.pushmenu', function() {
+    $.cookie('sidebar_collapse', 0);
+});
+
+$(document).on('collapsed.lte.pushmenu', function() {
+    $.cookie('sidebar_collapse', 1);
+});

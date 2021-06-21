@@ -1,5 +1,39 @@
 {% extends template('adminlte') %}
 
+{% block js %}
+<script src="{{ public_file('index.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-Permisos
+<section class="p-3">
+    <div class="card card-success card-outline">
+        <div class="card-header">
+            <div class="card-title">
+                Permisos
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table mb-0 table-sm table-bordered table-hover w-100 rounded" id="tabla-permisos">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Key</th>
+                            <th>Descripción</th>
+                            <th>Opc.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="100">
+                                <h5 class="text-center mb-0 p-3">
+                                    . . .
+                                </h5>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
