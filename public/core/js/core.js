@@ -2,7 +2,7 @@
  * Alertas
  */
 const Alerta = {
-    autohide: false,
+    autohide: true,
     delay: 5000,
 
     default(title, content) {

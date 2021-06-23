@@ -20,6 +20,10 @@
     }
 }
 
+.toasts-top-right {
+    z-index: 1100 !important;
+}
+
 /*
     Card header Login
 */
