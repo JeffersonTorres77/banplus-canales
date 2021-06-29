@@ -40,11 +40,6 @@ class table_permisos_roles
                 'rol_id' => 1,
                 'permiso_id' => 2
             ],
-            [
-                'id' => 3,
-                'rol_id' => 1,
-                'permiso_id' => 3
-            ]
         ]);
         DB::unprepared("SET IDENTITY_INSERT {$this->table} OFF");
 

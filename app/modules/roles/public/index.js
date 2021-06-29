@@ -37,45 +37,14 @@ var tabla = $("#table-roles").DataTable({
                     <button class="btn btn-outline-success btn-sm btn-opc editar">
                         <i class="fas fa-edit fa-sm"></i>
                     </button>
-                    <button class="btn btn-outline-danger btn-sm btn-opc eliminar">
-                        <i class="fas fa-trash-alt fa-sm"></i>
+                    <button class="btn btn-outline-primary btn-sm btn-opc permisos">
+                        <i class="fas fa-key fa-sm"></i>
                     </button>
                 </div>`;
             }
         }
     ]
 });
-
-
-/**
- * Nuevo
- */
-$("#modal-nuevo form").on('submit', function(e) {
-    e.preventDefault();
-
-    AJAX.enviar({
-        url: `${BASE_URL}/roles/api/registrar/`,
-        data: Form.json( $("#modal-nuevo form") ),
-        antes() {
-            Loader.show();
-        },
-        error(mensaje) {
-            Alerta.error('Registrar usuario', mensaje);
-        },
-        ok(data) {
-            $("#modal-nuevo").modal('hide');
-            Alerta.ok('Registrar usuario', 'Usuario registrado exitosamente.');
-            tabla.ajax.reload();
-        },
-        final() {
-            Loader.hide();
-        }
-    });
-});
-
-$("#modal-nuevo").on('hidden.bs.modal', function() {
-    $("#modal-nuevo form")[0].reset();
-})
 
 
 
@@ -116,57 +85,79 @@ $("#modal-editar form").on('submit', function(e) {
     });
 });
 
-
-
 /**
- * Eliminar
+ * Permisos
  */
-$("#table-roles tbody").on('click', 'button.eliminar', function() {
-    let data = tabla.row( $(this).parents('tr') ).data();
-
-    $("[data-key=nombre]").html(data.nombre);
-    $("[data-key=cant_usuarios]").html(data.cant_usuarios);
-
-    $("[value-key=id]").val(data.id);
-
-    let roles = tabla.data().toArray();
-    $("#select-roles").html('');
-    for(let rol of roles) {
-        if(rol.id == data.id) continue;
-        $("#select-roles").append(`<option value="${rol.id}">${rol.nombre}</option>`);
-    }
-
-    if(data.cant_usuarios > 0) {
-        $("#div-sustituir-rol").removeClass('d-none').addClass('d-block');
-        $("#select-roles").attr('required', '');
-    }
-    else {
-        $("#div-sustituir-rol").removeClass('d-block').addClass('d-none');
-        $("#select-roles").removeAttr('required');
-    }
-
-    $("#modal-eliminar").modal('show');
-});
-
-$("#modal-eliminar form").on('submit', function(e) {
-    e.preventDefault();
-
+$("#table-roles tbody").on('click', 'button.permisos', function() {
+    let rol = tabla.row( $(this).parents('tr') ).data();
+    $("[data-key=nombre]").html(rol.nombre);
+    
     AJAX.enviar({
-        url: `${BASE_URL}/roles/api/eliminar/`,
-        data: Form.json( $("#modal-eliminar form") ),
+        url: `${BASE_URL}/Roles/API/Permisos/`,
+        data: {
+            id: rol.id
+        },
         antes() {
             Loader.show();
         },
         error(mensaje) {
-            Alerta.error('Eliminar usuario', mensaje);
+            Alerta.error('Permisos del rol', mensaje);
         },
         ok(data) {
-            $("#modal-eliminar").modal('hide');
-            Alerta.ok('Eliminar usuario', 'Usuario eliminado exitosamente.');
-            tabla.ajax.reload();
+            render_modal_permisos(data.rol, data.permisos);
+            $("#modal-permisos").modal('show');
         },
         final() {
             Loader.hide();
         }
     });
 });
+
+$("#table-modificar-permisos tbody").on('submit', 'form', function(e) {
+    e.preventDefault();
+    let form = Form.json( $(this) );
+    AJAX.enviar({
+        url: `${BASE_URL}/Roles/API/cambiar-permiso/`,
+        data: form,
+        antes() {
+            Loader.show();
+        },
+        error(mensaje) {
+            Alerta.error('Cambiar permiso', mensaje);
+        },
+        ok(data) {
+            render_modal_permisos(data.rol, data.permisos);
+            $("#modal-permisos").modal('show');
+            Alerta.ok('Cambiar permiso', 'Permiso cambiando exitosamente.');
+        },
+        final() {
+            Loader.hide();
+        }
+    });
+
+    console.log( Form.json( $(this) ) );
+});
+
+function render_modal_permisos(rol, permisos) {
+    let code = '';
+    for(let permiso of permisos) {
+        code += `<tr>
+            <td class="text-left align-middle">${permiso.description}</td>
+            <td class="text-center align-middle">
+                <span class="badge badge-${(permiso.permitido) ? 'success' : 'danger'}" style="width: 25px;">
+                    ${(permiso.permitido) ? 'Si' : 'No'}
+                </span>
+            </td>
+            <td class="text-center align-middle">
+                <form>
+                    <input type="hidden" name="rol_id" value="${rol.id}" />
+                    <input type="hidden" name="slug_permiso" value="${permiso.slug}" />
+                    <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-sync-alt fa-sm"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>`;
+    }
+    $("#table-modificar-permisos tbody").html( code );
+}

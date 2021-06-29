@@ -12,13 +12,6 @@
                 <div class="card-title">
                     Roles
                 </div>
-
-                <div>
-                    <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#modal-nuevo">
-                        <i class="fas fa-plus fa-sm"></i>
-                        <span class="d-none d-md-inline">Nuevo</span>
-                    </button>
-                </div>
             </div>
         </div>
         <div class="card-body">
@@ -29,7 +22,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Usuarios</th>
-                            <th>Opc.</th>
+                            <th class="text-center">Opc.</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,43 +38,12 @@
     </div>
 </section>
 
-<!-- MODAL NUEVO -->
-<div class="modal fade" id="modal-nuevo">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <form class="modal-content">
-            <div class="modal-header bg-primary">
-                <div class="modal-title h5">Nuevo Rol</div>
-                <button class="close" data-dismiss="modal" type="button">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <div class="form-group row mb-0">
-                    <label class="col-md-2 col-form-label">Nombre</label>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" name="nombre" placeholder="Nombre..." required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer justify-content-center">
-                <button class="btn btn-outline-secondary" style="width: 100px;" type="button" data-dismiss="modal">
-                    Cerrar
-                </button>
-
-                <button class="btn btn-primary" style="width: 100px;" type="submit">
-                    Registrar
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
 <!-- MODAL EDITAR -->
 <div class="modal fade" id="modal-editar">
     <div class="modal-dialog modal-dialog-centered modal-scrollable">
         <form class="modal-content">
             <div class="modal-header bg-success">
-                <div class="modal-title h5">Modificar: <span data-key="nombre"></span></div>
+                <div class="modal-title h5">Modificar <b data-key="nombre"></b></div>
                 <button class="close" data-dismiss="modal" type="button">&times;</button>
             </div>
 
@@ -116,27 +78,34 @@
     </div>
 </div>
 
-<!-- MODAL ELIMINAR -->
-<div class="modal fade" id="modal-eliminar">
+<!-- MODAL PERMISOS -->
+<div class="modal fade" id="modal-permisos">
     <div class="modal-dialog modal-dialog-centered modal-scrollable">
-        <form class="modal-content">
-            <div class="modal-header bg-danger">
-                <div class="modal-title h5">Eliminar Rol</div>
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <div class="modal-title h5">Permisos de <b data-key="nombre"></b></div>
                 <button class="close" data-dismiss="modal" type="button">&times;</button>
             </div>
 
             <div class="modal-body">
-                <input type="hidden" name="id" value-key="id">
-                <p class="mb-0">¿Esta seguro que desea eliminar el rol <b data-key="nombre"></b>?</p>
+                <div class="table-responsive">
+                    <table class="table table-sm mb-0 w-100 table-bordered table-hover table-striped rounded" id="table-modificar-permisos">
+                        <thead>
+                            <tr>
+                                <th style="width: auto;" class="text-left">Descripción</th>
+                                <th style="width: 70px;" class="text-center">Permitido</th>
+                                <th style="width: 70px;" class="text-center">Opc.</th>
+                            </tr>
+                        </thead>
 
-                <div id="div-sustituir-rol">
-                    <p class="my-3">
-                        El rol actual posee <b><span data-key="cant_usuarios"></span> usuarios</b>, para continuar indique el rol que se le asignara a esos usuarios.
-                    </p>
-    
-                    <div class="form-group mb-0">
-                        <select name="rol_id-reemplazo" id="select-roles" class="form-control"></select>
-                    </div>
+                        <tbody>
+                            <tr>
+                                <td colspan="100">
+                                    <h5 class="text-center mb-0 p-3">. . .</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -144,12 +113,8 @@
                 <button class="btn btn-outline-secondary" style="width: 100px;" type="button" data-dismiss="modal">
                     Cerrar
                 </button>
-
-                <button class="btn btn-danger" style="width: 100px;" type="submit">
-                    Eliminar
-                </button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}

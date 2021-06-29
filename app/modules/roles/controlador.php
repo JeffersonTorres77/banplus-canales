@@ -39,21 +39,6 @@ class controlador
             break;
 
             /**
-             * Registrar
-             */
-            case 'registrar':
-                $nombre = Request::input('nombre', $obligatorio = TRUE);
-
-                if( Rol::where('nombre', $nombre)->count() > 0 ) throw new Exception("El rol <b>{$nombre}</b> ya existe.");
-
-                $rol = new Rol;
-                $rol->nombre = $nombre;
-                $rol->save();
-
-                return Response::json([ 'ok' => TRUE ]);
-            break;
-
-            /**
              * Modificar
              */
             case 'modificar':
@@ -70,31 +55,53 @@ class controlador
             break;
 
             /**
-             * Eliminar
+             * Permisos
              */
-            case 'eliminar':
-                $id = Request::input('id', $obligatorio = TRUE);
+            case 'permisos':
+                $id = Request::input('id', $requerido = TRUE);
+                $rol = Rol::where('id', $id)->first();
+                if($rol == NULL) throw new Exception('El rol solicitado no existe.');
+
+                $permisos = Permiso::select('id', 'slug', 'description')->get();
+                foreach($permisos as $key => $permiso) {
+                    $permisos[$key]->permitido = $rol->esValido($permiso->id);
+                }
+
+                return Response::json([
+                    'rol' => $rol,
+                    'permisos' => $permisos
+                ]);
+            break;
+
+            /**
+             * Cambiar permiso
+             */
+            case 'cambiar-permiso':
+                $rol_id = Request::input('rol_id', $requerido = TRUE);
+                $slug_permiso = Request::input('slug_permiso', $requerido = TRUE);
+
+                $rol = Rol::where('id', $rol_id)->first();
+                if($rol == NULL) throw new Exception('El rol solicitado no existe.');
+
+                $permiso = Permiso::where('slug', $slug_permiso)->first();
+                if($permiso == NULL) throw new Exception('El permiso solicitado no existe.');
 
                 DB::beginTransaction();
 
-                $rol = Rol::find($id);
-                if($rol == NULL) throw new Exception("El rol solicitado ({$id}) no existe.");
+                $permitido = $rol->esValido($permiso->id);
+                $rol->cambiarPermiso($permiso->id, !$permitido);
 
-                $cant_usuarios = Usuario::where('rol_id', $rol->id)->count();
-                if($cant_usuarios > 0) {
-                    $reemplazo_id = Request::input('rol_id-reemplazo', $obligatorio = TRUE);
-                    $rol_reemplazo = Rol::find($reemplazo_id);
-                    if($rol_reemplazo == NULL) throw new Exception("El rol de reemplazo solicitado ({$reemplazo_id}) no existe.");
-                    if($rol_reemplazo->id == $rol->id) throw new Exception('El rol de reemplazo no puede ser el mismo rol a eliminar.');
-                    Usuario::where('rol_id', $rol->id)->update([
-                        'rol_id' => $rol_reemplazo->id
-                    ]);
+                DB::commit();
+                
+                $permisos = Permiso::select('id', 'slug', 'description')->get();
+                foreach($permisos as $key => $permiso) {
+                    $permisos[$key]->permitido = $rol->esValido($permiso->id);
                 }
 
-                $rol->delete();
-                DB::commit();
-
-                return Response::json([ 'ok' => TRUE ]);
+                return Response::json([
+                    'rol' => $rol,
+                    'permisos' => $permisos
+                ]);
             break;
             
             /**

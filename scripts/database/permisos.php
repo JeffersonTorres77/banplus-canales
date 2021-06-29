@@ -35,12 +35,6 @@ class table_permisos
             ],
             [
                 'id' => '2',
-                'slug' => 'menu-permisos',
-                'description' => 'Menu de permisos',
-                'created_at' => now(), 'updated_at' => now()
-            ],
-            [
-                'id' => '3',
                 'slug' => 'menu-usuarios',
                 'description' => 'Menu de usuarios',
                 'created_at' => now(), 'updated_at' => now()
