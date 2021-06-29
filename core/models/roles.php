@@ -4,8 +4,14 @@ class Rol extends Illuminate\Database\Eloquent\Model
 {
     protected $table = 'roles';
 
-    public function esValido($permiso_id) {
-        $rows = Permiso_Rol::where('rol_id', $this->id)->where('permiso_id', $permiso_id)->count();
+    public function esValido($slug) {
+        $rows = Permiso::select('permisos.slug')
+            ->where('permisos.slug', $slug)
+            ->where('permisos_roles.rol_id', $this->id)
+            ->join('permisos_roles', 'permisos.id', '=', 'permisos_roles.permiso_id')
+            ->count();
+
+        // echo json_encode($rows); exit;
         return ($rows > 0);
     }
 

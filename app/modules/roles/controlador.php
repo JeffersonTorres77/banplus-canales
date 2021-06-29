@@ -5,7 +5,13 @@ use Illuminate\Database\Capsule\Manager as DB;
 class controlador
 {
     public function __construct() {
+        // Validamos la sesion
         Sesion::auth();
+        // Validamos los permisos del menu
+        if( !Sesion::usuario()->rol->esValido('menu_roles') ) {
+            if(!Request::esAjax()) Response::sin_permisos();
+            else throw new Exception('Usted no tiene permisos para acceder a esta pagina.');
+        }
     }
 
     public function index() {
@@ -64,7 +70,7 @@ class controlador
 
                 $permisos = Permiso::select('id', 'slug', 'description')->get();
                 foreach($permisos as $key => $permiso) {
-                    $permisos[$key]->permitido = $rol->esValido($permiso->id);
+                    $permisos[$key]->permitido = $rol->esValido($permiso->slug);
                 }
 
                 return Response::json([
@@ -88,14 +94,14 @@ class controlador
 
                 DB::beginTransaction();
 
-                $permitido = $rol->esValido($permiso->id);
+                $permitido = $rol->esValido($permiso->slug);
                 $rol->cambiarPermiso($permiso->id, !$permitido);
 
                 DB::commit();
                 
                 $permisos = Permiso::select('id', 'slug', 'description')->get();
                 foreach($permisos as $key => $permiso) {
-                    $permisos[$key]->permitido = $rol->esValido($permiso->id);
+                    $permisos[$key]->permitido = $rol->esValido($permiso->slug);
                 }
 
                 return Response::json([

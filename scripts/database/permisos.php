@@ -28,14 +28,14 @@ class table_permisos
         DB::unprepared("SET IDENTITY_INSERT {$this->table} ON");
         $users = DB::table($this->table)->insert([
             [
-                'id' => '1',
-                'slug' => 'menu-roles',
+                'id' => 1,
+                'slug' => 'menu_roles',
                 'description' => 'Menu de roles',
                 'created_at' => now(), 'updated_at' => now()
             ],
             [
-                'id' => '2',
-                'slug' => 'menu-usuarios',
+                'id' => 2,
+                'slug' => 'menu_usuarios',
                 'description' => 'Menu de usuarios',
                 'created_at' => now(), 'updated_at' => now()
             ]

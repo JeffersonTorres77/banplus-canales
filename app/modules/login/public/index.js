@@ -10,6 +10,7 @@ $("#form-login").on('submit', (e) => {
             Loader.show();
         },
         error(mensaje) {
+            Loader.hide();
             $("#login-errors-label").html(mensaje);
             $("#login-errors").collapse('show');
         },

@@ -99,23 +99,29 @@
         </ul>
     </li>
 
-    <li class="nav-header">Sistema</li>
+    {% if PERMISOS.menu_roles or PERMISOS.menu_usuarios %}
+        <li class="nav-header">Sistema</li>
 
-    <li class="nav-item">
-        <a
-            href="{{ BASE_URL }}/Roles/"
-            class="nav-link {{ (CONTROLADOR == 'roles') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-key"></i>
-            <p>Roles</p>
-        </a>
-    </li>
+        {% if PERMISOS.menu_roles %}
+        <li class="nav-item">
+            <a
+                href="{{ BASE_URL }}/Roles/"
+                class="nav-link {{ (CONTROLADOR == 'roles') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-key"></i>
+                <p>Roles</p>
+            </a>
+        </li>
+        {% endif %}
 
-    <li class="nav-item">
-        <a
-            href="{{ BASE_URL }}/Usuarios/"
-            class="nav-link {{ (CONTROLADOR == 'usuarios') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-users"></i>
-            <p>Usuarios</p>
-        </a>
-    </li>
+        {% if PERMISOS.menu_usuarios %}
+        <li class="nav-item">
+            <a
+                href="{{ BASE_URL }}/Usuarios/"
+                class="nav-link {{ (CONTROLADOR == 'usuarios') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-users"></i>
+                <p>Usuarios</p>
+            </a>
+        </li>
+        {% endif %}
+    {% endif %}
 </ul>
