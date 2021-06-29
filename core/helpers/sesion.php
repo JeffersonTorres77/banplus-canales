@@ -27,10 +27,10 @@ class Sesion
 
         // Usuario
         self::$usuario = Usuario::where('usuario', $usuario)->first();
-        if(self::$usuario == NULL) return FALSE;
-        if(!self::$usuario->activo) return FALSE;
-        // IP
-        if($ip !== IP_CLIENTE) return FALSE;
+        if($ip !== IP_CLIENTE || self::$usuario == NULL || !self::$usuario->activo) {
+            self::cerrar();
+            return FALSE;
+        }
 
         return TRUE;
     }

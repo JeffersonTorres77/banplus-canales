@@ -1,5 +1,49 @@
 {% extends template('adminlte') %}
 
+{% block js %}
+<script src="{{ public_file('index.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-Usuarios
+<section class="p-3">
+    <div class="card card-success card-outline">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="card-title">
+                    Usuarios
+                </div>
+
+                <div>
+                    <button class="btn btn-sm btn-primary" type="button" style="width: 132px;">
+                        <i class="fas fa-sm fa-user-plus mr-1"></i> Usuario regular
+                    </button>
+                    <button class="btn btn-sm btn-primary" type="button" style="width: 132px;">
+                        <i class="fab fa-windows fa-sm mr-1"></i> Directorio activo
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm mb-0 table-hover table-bordered w-100 rounded" id="table-usuarios">
+                    <thead class="table-success">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Activo</th>
+                            <th class="text-center">Opc.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center" colspan="100">
+                                <h5 class="mb-0 p-3">. . .</h5>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
