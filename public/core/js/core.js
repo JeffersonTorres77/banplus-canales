@@ -213,3 +213,11 @@ const DT_SPANISH = {
 $(document).on('collapsed.lte.pushmenu', function() {
     $.cookie('sidebar_collapse', 1);
 });
+
+/**
+ * Format Number
+ */
+function formatNumber(n) {
+	n = String(n).replace(/\D/g, "");
+    return n === '' ? n : Number(n).toLocaleString();
+}

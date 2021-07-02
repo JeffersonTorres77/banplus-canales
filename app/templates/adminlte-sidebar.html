@@ -69,7 +69,7 @@
     </li>
 
     <!-- CONTINGENCIA -->
-    <li class="nav-item">
+    <li class="nav-item {{ (CONTROLADOR == 'contingencia') ? 'menu-is-opening menu-open' : '' }}">
         <a
             href="#"
             class="nav-link {{ (CONTROLADOR == 'contingencia') ? 'active' : '' }}">
@@ -90,8 +90,8 @@
             </li>
             <li class="nav-item">
                 <a
-                    href="{{ BASE_URL }}/Contingencia/Gestionar/"
-                    class="nav-link {{ (CONTROLADOR == 'contingencia' and METODO == 'gestionar') ? 'active' : '' }}">
+                    href="{{ BASE_URL }}/Contingencia/"
+                    class="nav-link {{ (CONTROLADOR == 'contingencia' and METODO == 'index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-list"></i>
                     <p>Gestionar</p>
                 </a>

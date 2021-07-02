@@ -63,37 +63,4 @@
     </div>
 </div>
 <!-- /.login-box -->
-
-<div class="modal fade" id="modal-registro">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <form class="modal-content" id="form-registro">
-            <div class="modal-header bg-verde">
-                <div class="modal-title">Usuario no registrado</div>
-                <div class="close" data-dismiss="modal" type="button">&times;</div>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" name="user" id="registro-input-usuario">
-                <div>
-                    El usuario <b id="registro-usuario"></b> no se encuentra registrado pero pertenece a la red
-                    ¿Desea registrarlo?
-                </div>
-                <div class="mt-3">
-                    Coloque nuevamente su contraseña
-                    <div class="input-group">
-                        <input type="password" class="form-control" placeholder="Contraseña..." required name="pass">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-md-center">
-                <button class="btn btn-100px btn-outline-secondary" data-dismiss="modal" type="button">Cancelar</button>
-                <button class="btn btn-100px btn-verde" type="submit">Registrar</button>
-            </div>
-        </form>
-    </div>
-</div>
 {% endblock %}

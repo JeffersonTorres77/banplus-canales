@@ -20,61 +20,17 @@ class controlador
         $pass = Request::input('pass');
         
         $usuario = Usuario::where('usuario', $user)->first();
+        if($usuario == NULL) throw new Exception('Usuario incorrecto.');
 
-        if($usuario != NULL) {
-            if( $usuario->validar_red ) {
-                $ldap = new LDAP;
-                if( !$ldap->conectar($user, $pass) ) throw new Exception("Contraseña incorrecta.");
-            }
-            else {
-                if( $usuario->clave !== $pass ) throw new Exception("Contraseña incorrecta.");
-            }
-            if( $usuario->activo == FALSE ) throw new Exception('Usuario no activo.');
-            Sesion::crear($usuario->usuario);
-            return Response::json(['login' => TRUE]);
+        if( $usuario->validar_red ) {
+            $ldap = new LDAP;
+            if( !$ldap->conectar($user, $pass) ) throw new Exception("Contraseña incorrecta.");
         }
         else {
-            $ldap = new LDAP;
-            if( !$ldap->conectar($user, $pass) ) throw new Exception("El usuario no se encuentra.");
-            $datos = $ldap->consultar_usuario($user);
-            
-            return Response::json([
-                'login' => FALSE,
-                'usuario' => $datos['usuario'],
-                'nombre' => $datos['cn'],
-            ]);
+            if( $usuario->clave !== $pass ) throw new Exception("Contraseña incorrecta.");
         }
-    }
-
-    public function registrar() {
-        $user = Request::input('user');
-        $pass = Request::input('pass');
-        
-        if(Usuario::where('usuario', $user)->first() != NULL) throw new Exception('El usuario ya existe.');
-
-        $ldap = new LDAP;
-        if( !$ldap->conectar($user, $pass) ) throw new Exception("El usuario no se encuentra.");
-        $datos = $ldap->consultar_usuario($user);
-
-        DB::beginTransaction();
-
-        $usuario = new Usuario;
-        $usuario->rol_id = 2;
-        $usuario->usuario = $datos['usuario'];
-        $usuario->nombres = $datos['nombres'];
-        $usuario->apellidos = $datos['apellidos'];
-        $usuario->correo = $datos['correo'];
-        $usuario->cargo = $datos['cargo'];
-        $usuario->departamento = $datos['departamento'];
-        $usuario->validar_red = TRUE;
-        $usuario->clave = NULL;
-        $usuario->activo = TRUE;
-        $usuario->save();
-        
-        DB::commit();
-
+        if( $usuario->activo == FALSE ) throw new Exception('Usuario no activo.');
         Sesion::crear($usuario->usuario);
-
         return Response::json(['ok' => TRUE]);
     }
 }
