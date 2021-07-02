@@ -56,3 +56,29 @@ $("#form-otros").on('submit', function(e) {
         }
     });
 })
+
+/**
+ * Eliminar usuario
+ */
+$("#modal-eliminar form").on('submit', function(e) {
+    e.preventDefault();
+
+    AJAX.enviar({
+        url: `${BASE_URL}/usuarios/api/eliminar/`,
+        data: {
+            id: ID
+        },
+        antes() {
+            Loader.show();
+        },
+        error(mensaje) {
+            Alerta.error('Eliminar usuario', mensaje);
+        },
+        ok(data) {
+            location.href = `${BASE_URL}/Usuarios/`;
+        },
+        final() {
+            Loader.hide();
+        }
+    });
+})

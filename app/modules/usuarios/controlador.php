@@ -216,7 +216,18 @@ class controlador
              * Eliminar
              */
             case 'eliminar':
-                throw new Exception('Eliminar');
+                $id = Request::input('id', $requerido = TRUE);
+                $objUsuario = Usuario::find($id);
+                if($objUsuario == NULL) throw new Exception('Usuario no encontrado.');
+                if($objUsuario->id == Sesion::usuario()->id) throw new Exception('No se puede eliminar su propio usuario.');
+
+                DB::beginTransaction();
+                
+                $objUsuario->delete();
+
+                DB::commit();
+                
+                return Response::json(['ok' => TRUE]);
             break;
             
             /**

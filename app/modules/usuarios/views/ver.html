@@ -238,10 +238,36 @@
         </div>
 
         <div class="card-footer text-right">
-            <button class="btn btn-primary">
+            <button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#modal-eliminar">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+            <button class="btn btn-primary" type="submit">
                 <i class="fas fa-save mr-1"></i> Guardar
             </button>
         </div>
     </form>
+</div>
+
+<!-- MODAL ELIMINAR -->
+<div class="modal fade" id="modal-eliminar">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <form class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="mb-0">Eliminar usuario</h5>
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">¿Esta seguro de querer eliminar al usuario <b>{{ usuario.nombres }} {{ usuario.apellidos }}</b>?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-dismiss="modal" type="button" style="width: 100px;">
+                    Cerrar
+                </button>
+                <button class="btn btn-danger" type="submit" style="width: 100px;">
+                    Eliminar
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
