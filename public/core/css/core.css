@@ -104,3 +104,7 @@
 .sidebar-mini.sidebar-collapse .nav-sidebar .nav-header {
     display: block !important;
 }
+
+.text-sm .nav-link {
+    padding: 0.8rem 0.8rem;
+}
