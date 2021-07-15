@@ -77,8 +77,11 @@ class Request
         return strtoupper( self::$method );
     }
 
-    public static function get($key, $required = TRUE) {
-        if( !isset($_GET[$key]) ) {
+    public static function get($key = NULL, $required = TRUE) {
+        if($key == NULL) {
+            return $_GET;
+        }
+        elseif( !isset($_GET[$key]) ) {
             if($required) throw new Exception("No se ha recibido el parametro '{$key}' mediante GET.");
             else return NULL;
         }
@@ -87,8 +90,11 @@ class Request
         }
     }
 
-    public static function post($key, $required = TRUE) {
-        if( !isset($_POST[$key]) ) {
+    public static function post($key = NULL, $required = TRUE) {
+        if($key == NULL) {
+            return $_POST;
+        }
+        elseif( !isset($_POST[$key]) ) {
             if($required) throw new Exception("No se ha recibido el parametro '{$key}' mediante POST.");
             else return NULL;
         }
@@ -97,7 +103,16 @@ class Request
         }
     }
 
-    public static function files($key, $required = TRUE) {
-        /* Nothing... */
+    public static function files($key = NULL, $required = TRUE) {
+        if($key == NULL) {
+            return $_FILES;
+        }
+        elseif( !isset($_FILES[$key]) ) {
+            if($required) throw new Exception("No se ha recibido el parametro '{$key}' mediante FILES.");
+            else return NULL;
+        }
+        else {
+            return (Object) $_FILES[$key];
+        }
     }
 }

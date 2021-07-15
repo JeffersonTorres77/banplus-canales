@@ -82,18 +82,18 @@
         <ul class="nav nav-treeview">
             <li class="nav-item">
                 <a
-                    href="{{ BASE_URL }}/Contingencia/Usuarios/"
-                    class="nav-link {{ (CONTROLADOR == 'contingencia' and METODO == 'usuarios') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-sync-alt"></i>
-                    <p>Usuarios</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a
                     href="{{ BASE_URL }}/Contingencia/"
                     class="nav-link {{ (CONTROLADOR == 'contingencia' and METODO == 'index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-list"></i>
                     <p>Gestionar</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                    href="{{ BASE_URL }}/Contingencia/Usuarios/"
+                    class="nav-link {{ (CONTROLADOR == 'contingencia' and METODO == 'usuarios') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-sync-alt"></i>
+                    <p>Usuarios</p>
                 </a>
             </li>
         </ul>

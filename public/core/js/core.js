@@ -49,6 +49,18 @@ const Alerta = {
  * AJAX
  */
 const AJAX = {
+    /**
+     * Peticion regular
+     * {
+     *  url: String,
+     *  data: JSON,
+     *  method: String = 'POST',
+     *  antes: Callback(),
+     *  error: Callback(mensaje),
+     *  ok: Callback(data),
+     *  final: Callback(),
+     * }
+     */
     enviar(options) {
         // Validacion
         if(options.url == undefined) throw `No se ha enviado el atributo 'url'.`;
@@ -100,6 +112,83 @@ const AJAX = {
         .done(function() {
             options.final();
         });
+    },
+
+    /**
+     * Carga de archivo
+     * {
+     *  url: String,
+     *  data: FormData,
+     *  method: String = 'POST',
+     *  antes: Callback(),
+     *  error: Callback(mensaje),
+     *  carga: Callback(porcentaje, cargado, total),
+     *  ok: Callback(data),
+     *  final: Callback(),
+     * }
+     */
+    cargar(options) {
+        // Validacion
+        if(options.url == undefined) throw `No se ha enviado el atributo 'url'.`;
+
+        // Valores por defecto
+        if(options.data == undefined) options.data = {};
+        if(options.method == undefined) options.method = 'POST';
+        if(options.antes == undefined) options.antes = () => {
+            Loader.show();
+        };
+        if(options.error == undefined) options.error = (mensaje) => {
+            Loader.hide();
+            Alerta.error('Mensaje del sistema', mensaje);
+        }
+        if(options.carga == undefined) options.carga = (porcentaje, carga, total) => {
+            /* Nothing */
+        }
+        if(options.ok == undefined) options.ok = (data) => {
+            Loader.hide();
+            console.log(data);
+        };
+        if(options.final == undefined) options.final = () => {
+            /* Nothing */
+        }
+
+        $.ajax({
+            url: options.url,
+            type: options.method,
+            data: options.data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                options.antes();
+            },
+            error(errorThrown) {
+                console.error(errorThrown);
+            },
+            xhr() {
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.onprogress = function (event) {
+                    var perc = Math.round((event.loaded / event.total) * 100);
+                    options.carga(perc, event.loaded, event.total);
+                };
+                return xhr;
+            },
+            success(data) {
+                if(data.status == undefined) throw "No se recibio el parametro 'status'.";
+                if(data.body == undefined) throw "No se recibio el parametro data.body'.";
+    
+                if(data.status.toLowerCase() !== 'ok') {
+                    if(AUDITAR) console.warn(data.body);
+                    options.error(data.body.message);
+                }
+                else {
+                    options.ok(data.body);
+                }
+            },
+            complete() {
+                options.final();
+            }
+        });
     }
 };
 
@@ -117,14 +206,51 @@ const Loader = {
                 </div>
             </div>
         </div>`);
-
+        $("#modal-loader").on('hidden.bs.modal', function() {
+            $("#modal-loader").remove();
+        });
         $("#modal-loader").modal('show');
     },
     hide() {
         $("#modal-loader").modal('hide');
-        $("#modal-loader").on('hidden.bs.modal', function() {
-            $("#modal-loader").remove();
+    }
+};
+
+/**
+ * Barra de progreso
+ */
+const ProgressBar = {
+    show() {
+        $('body').append(`<div class="modal" id="modal-progress-bar" data-backdrop="static" data-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body p-4 d-flex justify-content-center align-items-center">
+                    <div class="progress w-100">
+                        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                style="width: 0%;" aria-valuenow="0">
+                            0%
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>`);
+        $("#modal-progress-bar").on('hidden.bs.modal', function() {
+            $("#modal-progress-bar").remove();
         });
+        $("#modal-progress-bar").modal('show');
+    },
+    change(percentage) {
+        $("#modal-progress-bar .progress .progress-bar")
+            .css('width', `${percentage}%`)
+            .attr('aria-valuenow', percentage)
+            .html(`${percentage}%`);
+    },
+    classColor(color) {
+        $("#modal-progress-bar .progress .progress-bar").attr('class', `progress-bar ${color}`);
+    },
+    hide() {
+        $("#modal-progress-bar").modal('hide');
     }
 };
 

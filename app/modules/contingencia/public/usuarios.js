@@ -6,7 +6,7 @@
     processing: true,
     serverSide: true,
     ajax: {
-        url: `${BASE_URL}/contingencia/api/datatable-usuarios/`
+        url: `${BASE_URL}/contingencia/api_usuarios/datatable/`
     },
     columns: [
         {
@@ -61,7 +61,7 @@ function actualizar_tabla() {
  */
 $("#btn-nuevo-usuario").on('click', function() {
     AJAX.enviar({
-        url: `${BASE_URL}/contingencia/api/usuarios-disponibles/`,
+        url: `${BASE_URL}/contingencia/api_usuarios/usuarios-disponibles/`,
         antes() {
             Loader.show();
         },
@@ -93,7 +93,7 @@ $("#modal-registrar form").on('submit', function(e) {
     e.preventDefault();
     
     AJAX.enviar({
-        url: `${BASE_URL}/contingencia/api/registrar-usuario/`,
+        url: `${BASE_URL}/contingencia/api_usuarios/registrar-usuario/`,
         data: Form.json( $("#modal-registrar form") ),
         antes() {
             Loader.show();
@@ -131,7 +131,7 @@ $("#modal-editar form").on('submit', function(e) {
     e.preventDefault();
     
     AJAX.enviar({
-        url: `${BASE_URL}/contingencia/api/editar-usuario/`,
+        url: `${BASE_URL}/contingencia/api_usuarios/editar-usuario/`,
         data: Form.json( $("#modal-editar form") ),
         antes() {
             Loader.show();
@@ -166,7 +166,7 @@ $("#modal-eliminar form").on('submit', function(e) {
     e.preventDefault();
     
     AJAX.enviar({
-        url: `${BASE_URL}/contingencia/api/eliminar-usuario/`,
+        url: `${BASE_URL}/contingencia/api_usuarios/eliminar-usuario/`,
         data: Form.json( $("#modal-eliminar form") ),
         antes() {
             Loader.show();
