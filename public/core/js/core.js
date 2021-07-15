@@ -217,7 +217,10 @@ $(document).on('collapsed.lte.pushmenu', function() {
 /**
  * Format Number
  */
-function formatNumber(n) {
-	n = String(n).replace(/\D/g, "");
-    return n === '' ? n : Number(n).toLocaleString();
+function formatNumber(num, n = 2, s = '.', c = ',') {
+    num = Number(num);
+	var re = '\\d(?=(\\d{' + (3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+        num = num.toFixed(Math.max(0, ~~n));
+
+    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
 }

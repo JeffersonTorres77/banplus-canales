@@ -11,7 +11,7 @@ class table_contingencia_usuarios
         DB::schema()->create($this->table, function ($table) {
             $table->increments('id');
 
-            $table->integer('usuario_id')->unsigned()->index();
+            $table->integer('usuario_id')->unsigned()->index()->unique();
             $table->foreign('usuario_id')->references('id')->on('usuarios');
 
             $table->integer('numero_lote');

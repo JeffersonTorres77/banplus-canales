@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="card-title">Usuarios de contingencia</div>
                 <div>
-                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-registrar">
+                    <button class="btn btn-sm btn-primary" id="btn-nuevo-usuario">
                         <i class="fas fa-user-plus mr-1"></i> Nuevo usuario
                     </button>
                 </div>
@@ -50,9 +50,26 @@
             </div>
 
             <div class="modal-body">
-                {% for usuario in usuarios_no_registrados %}
-                {{ usuario.usuario }}<br>
-                {% endfor %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="mb-1">Usuario</label>
+                            <select class="form-control" required name="usuario_id"></select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-0">
+                            <label class="mb-1">N° de lote</label>
+                            <input type="number" min="0" step="1" class="form-control" required name="numero_lote" placeholder="N° de lote...">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-0">
+                            <label class="mb-1">Referencia inicial</label>
+                            <input type="number" min="0" step="1" class="form-control" required name="referencia_inicial" placeholder="Referencia inicial...">
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -61,6 +78,69 @@
                 </button>
                 <button class="btn btn-primary" type="submit" style="width: 100px;">
                     Registrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL EDITAR -->
+<div class="modal fade" id="modal-editar">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="mb-0">Modificar <b data="nombre"></b></h5>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" name="usuario_id">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-0">
+                            <label class="mb-1">N° de lote</label>
+                            <input type="number" min="0" step="1" class="form-control" required name="numero_lote" placeholder="N° de lote...">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-0">
+                            <label class="mb-1">Referencia inicial</label>
+                            <input type="number" min="0" step="1" class="form-control" required name="referencia_inicial" placeholder="Referencia inicial...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-dismiss="modal" type="button" style="width: 100px;">
+                    Cerrar
+                </button>
+                <button class="btn btn-success" type="submit" style="width: 100px;">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL ELIMINAR -->
+<div class="modal fade" id="modal-eliminar">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="mb-0">Eliminar usuario de contingencia</h5>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" name="usuario_id">
+                <p class="mb-0">¿Esta seguro que desea eliminar el usuario de contingencia <b data="nombre"></b>?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-dismiss="modal" type="button" style="width: 100px;">
+                    Cerrar
+                </button>
+                <button class="btn btn-danger" type="submit" style="width: 100px;">
+                    Eliminar
                 </button>
             </div>
         </form>
