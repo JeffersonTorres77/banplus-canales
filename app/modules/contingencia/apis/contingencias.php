@@ -60,13 +60,37 @@ switch(strtolower($accion))
      * Cargar archivo de contingencia
      */
     case 'cargar-contingencia':
+        // Parametros
         $archivo = Request::files('archivo', $requerido = TRUE);
         $nombre_emisor = Request::post('nombre_emisor', $requerido = TRUE);
         $numero_lote = Request::post('numero_lote', $requerido = TRUE);
         $referencia_inicial = Request::post('referencia_inicial', $requerido = TRUE);
 
-        sleep(1);
+        // Validamos
+        if($numero_lote < 1 || $numero_lote > 999) throw new Exception("El <b>numero de lote</b> debe estar entre 1-999.");
+        if($referencia_inicial < 1) throw new Exception("La <b>referencia inicial</b> debe ser mayor a cero.");
 
+        // Validamos extension del archivo
+        $extensiones_validas = ['xlsx', 'xls'];
+        if( !in_array(strtolower($archivo->extension) , $extensiones_validas) ) {
+            throw new Exception("Extensión invalida. Las extensiones validas son: <b>". strtoupper(implode(', ', $extensiones_validas)) ."</b>");
+        }
+
+        // Carpeta de contingencia
+        $carpetaContingencia = BASE_DIR."/public/archivos/contingencia";
+        if( !Sistema::ExisteCarpeta($carpetaContingencia) ) throw new Exception("La carpeta de contingencia no existe.");
+
+        // Preparamos el archivo
+        require_once( __DIR__."/../utils/lector_contingencia.php" );
+        $lector = new LectorContingencia( $archivo->tmp_name );
+
+        return Response::json([
+            'LOT' => $lector->GenerarLOT($numero_lote)
+        ]);
+        
+        throw new Exception('Error de sistema');
+
+        // Respondemos
         return Response::json([ 'ok' => TRUE ]);
     break;
 

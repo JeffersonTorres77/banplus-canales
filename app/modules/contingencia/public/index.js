@@ -64,6 +64,10 @@ bsCustomFileInput.init();
     ]
 });
 
+function actualizar_tabla() {
+    tabla.ajax.reload();
+}
+
 /**
  * Cargar contingencia
  */
@@ -105,11 +109,14 @@ $("#modal-cargar-contingencia form").on('submit', function(e) {
         },
         carga(porcentaje, cargado, total) {
             ProgressBar.change(porcentaje);
-            console.log(cargado, total);
+            if(porcentaje >= 100) ProgressBar.classColor('bg-success');
         },
         ok(data) {
             console.log(data);
-            ProgressBar.classColor('bg-success');
+            // actualizar_tabla();
+            // $("#modal-cargar-contingencia").modal('hide');
+            // Alerta.ok('Cargar contingencia', 'Contingencia cargada exitosamente.');
+            // $("#modal-cargar-contingencia form")[0].reset();
         },
         final() {
             ProgressBar.hide();

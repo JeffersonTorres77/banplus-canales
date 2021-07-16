@@ -42,15 +42,15 @@ switch(strtolower($accion))
     case 'registrar-usuario':
         // Tomamos los parametros
         $usuario_id = Request::input('usuario_id', $requerido = TRUE);
-        $numero_lote = Request::input('numero_lote', $requerido = TRUE);
-        $referencia_inicial = Request::input('referencia_inicial', $requerido = TRUE);
+        $numero_lote = (int) Request::input('numero_lote', $requerido = TRUE);
+        $referencia_inicial = (int) Request::input('referencia_inicial', $requerido = TRUE);
 
         // Validamos
         $objUsuario = Usuario::find($usuario_id);
         if($objUsuario == NULL) throw new Exception('El usuario no existe.');
         if(Contingencia_Usuario::where('usuario_id', $objUsuario->id)->count() > 0) throw new Exception('El usuario ya esta registrado en la contingencia.');
-        if( !is_numeric($numero_lote) ) throw new Exception("El campo 'Numero de lote' debe ser numerico.");
-        if( !is_numeric($referencia_inicial) ) throw new Exception("El campo 'Referencia inicial' debe ser numerico.");
+        if($numero_lote < 1 || $numero_lote > 999) throw new Exception('El numero de lote debe estar entre 0 - 999.');
+        if($referencia_inicial < 1) throw new Exception('La referencia debe set mayor a cero.');
 
         // Convertimos
         $numero_lote = (int) $numero_lote;
@@ -83,8 +83,8 @@ switch(strtolower($accion))
         // Validamos
         $objUsuario = Contingencia_Usuario::where('usuario_id', $usuario_id)->first();
         if($objUsuario == NULL) throw new Exception('El usuario no existe.');
-        if( !is_numeric($numero_lote) ) throw new Exception("El campo 'Numero de lote' debe ser numerico.");
-        if( !is_numeric($referencia_inicial) ) throw new Exception("El campo 'Referencia inicial' debe ser numerico.");
+        if($numero_lote < 1 || $numero_lote > 999) throw new Exception('El numero de lote debe estar entre 0 - 999.');
+        if($referencia_inicial < 1) throw new Exception('La referencia debe set mayor a cero.');
         
         // Convertimos
         $numero_lote = (int) $numero_lote;

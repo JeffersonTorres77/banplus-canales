@@ -1,24 +1,32 @@
 <?php
 
-class System
+class Sistema
 {
-    public static function getFolderFiles($pathFolder, $withSubFolders = FALSE) {
-        $files = scandir($pathFolder);
-        $output = [];
+    public static function ArchivosDeCarpeta($rutaCarpeta, $withSubFolders = FALSE) {
+        $archivos = scandir($rutaCarpeta);
+        $salida = [];
 
-        foreach($files as $file) {
-            if($file == '.' || $file == '..') continue;
-            $pathFile = "{$pathFolder}/{$file}";
+        foreach($archivos as $archivo) {
+            if($archivo == '.' || $archivo == '..') continue;
+            $rutaArchivo = "{$rutaCarpeta}/{$archivo}";
 
-            if(is_dir($pathFile)) {
-                $filesFolder = self::getFolderFiles($pathFile);
-                $output = array_merge($output, $filesFolder);
+            if(is_dir($rutaArchivo)) {
+                $archivosDeCarpeta = self::ArchivosDeCarpeta($rutaArchivo);
+                $salida = array_merge($salida, $archivosDeCarpeta);
             }
             else {
-                array_push($output, str_replace('\\', '/', $pathFile));
+                array_push($salida, str_replace('\\', '/', $rutaArchivo));
             }
         }
         
-        return $output;
+        return $salida;
+    }
+    
+    public static function ExisteCarpeta($ruta) {
+        return (file_exists($ruta) && is_dir($ruta));
+    }
+    
+    public static function ExisteArchivo($ruta) {
+        return (file_exists($ruta) && is_file($ruta));
     }
 }

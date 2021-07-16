@@ -112,6 +112,9 @@ class Request
             else return NULL;
         }
         else {
+            $pathinfo = pathinfo( $_FILES[$key]['name'] );
+            $_FILES[$key]['filename'] = $pathinfo['filename'];
+            $_FILES[$key]['extension'] = $pathinfo['extension'];
             return (Object) $_FILES[$key];
         }
     }

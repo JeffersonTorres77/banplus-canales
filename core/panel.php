@@ -9,9 +9,9 @@ require_once(__DIR__."/system.php");
 require_once(BASE_DIR."/vendor/autoload.php");
 
 // Helpers
-$helpers = System::getFolderFiles( BASE_DIR."/core/helpers" );
+$helpers = Sistema::ArchivosDeCarpeta( BASE_DIR."/core/helpers" );
 foreach($helpers as $file) { require($file); }
 
 // Models
-$models = System::getFolderFiles( BASE_DIR."/core/models" );
+$models = Sistema::ArchivosDeCarpeta( BASE_DIR."/core/models" );
 foreach($models as $file) { require($file); }
